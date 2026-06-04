@@ -1,0 +1,13 @@
+<Solution>
+  <Configurations>
+    <BuildType Name="1" />
+    <BuildType Name="Debug" />
+    <BuildType Name="Release" />
+  </Configurations>
+  <Project Path="QL_SV.Service/QL_SV.Service.csproj" Id="fccd7506-fdd5-4680-b187-b0faff313736">
+    <BuildType Solution="1|*" Project="Debug" />
+  </Project>
+  <Project Path="QL_SV/QL_SV.csproj" Id="1c110d3e-551c-4216-8698-8d62b7868bfc">
+    <BuildDependency Project="QL_SV.Service/QL_SV.Service.csproj" />
+  </Project>
+</Solution>
