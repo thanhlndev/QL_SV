@@ -30,7 +30,7 @@ Solution bao gồm 2 dự án thành phần (2 projects):
 
 ---
 
-## 🛠 Công nghệ sử dụng
+## Công nghệ sử dụng
 * **Ngôn ngữ:** C# (.NET Framework)
 * **Giao diện:** Windows Forms (WinForm)
 * **Kiến trúc:** Interface-driven / Service-oriented Architecture (SOA)
@@ -38,7 +38,7 @@ Solution bao gồm 2 dự án thành phần (2 projects):
 
 ---
 
-## 🚀 Hướng dẫn cài đặt và khởi chạy dưới Local
+## Hướng dẫn cài đặt và khởi chạy dưới Local
 
 ### Điều kiện cần
 * Máy tính đã cài đặt **Visual Studio (phiên bản 2019 hoặc 2022)**.
