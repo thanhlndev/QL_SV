@@ -1,236 +1,4 @@
-﻿//using System;
-//using System.Collections.Generic;
-//using System.ComponentModel;
-//using System.Data;
-//using System.Drawing;
-//using System.Linq;
-//using System.Text;
-//using System.Threading.Tasks;
-//using System.Windows.Forms;
-//using QL_SV.FacultyServiceRef;
-
-//namespace QL_SV
-//{
-//    public partial class FacultyForm : Form
-//    {
-//        public FacultyForm()
-//        {
-//            InitializeComponent();
-//            this.Load += FacultyForm_Load;
-//            this.btnAdd.Click += BtnAdd_Click;
-//            this.btnEdit.Click += BtnEdit_Click;
-//            this.btnDel.Click += BtnDelete_Click;
-//            this.btnReset.Click += BtnReset_Click;
-//            this.btnGetFaculty.Click += btnGetFaculty_Click;
-
-//        }
-//            private void BtnAdd_Click(object sender, EventArgs e)
-//        {
-//            //if (!ValidateFacultyInput()) return;
-//            using (FacultyServiceClient client = new FacultyServiceClient())
-//            {
-//                var faculty = new FacultyDto
-//                {
-//                    MaKhoa = txtMakhoa.Text.Trim(),
-//                    TenKhoa = txtTenkhoa.Text.Trim(),
-//                    DiaChi = txtDiachi.Text.Trim(),
-//                    Email = txtEmail.Text.Trim(),
-//                    Sdt = txtSdt.Text.Trim()
-//                };
-//                client.AddFaculty(faculty);
-//                MessageBox.Show("Thêm thông tin khoa thành công!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-//                LoadFaculties();
-//            }
-//        }
-//            private void BtnEdit_Click(object sender, EventArgs e)
-//        {
-//            if (dgvFaculty.SelectedRows.Count == 0)
-//            {
-//                MessageBox.Show("Hãy chọn khoa trước để chỉnh sửa.", "Validation", MessageBoxButtons.OK, MessageBoxIcon.Warning);
-//                return;
-//            }
-//            var maKhoa = dgvFaculty.SelectedRows[0].Cells["MaKhoa"].Value.ToString();
-//            using (FacultyServiceClient client = new FacultyServiceClient())
-//            {
-//                var facultyDto = new FacultyDto
-//                {
-//                    MaKhoa = txtMakhoa.Text.Trim(),
-//                    TenKhoa = txtTenkhoa.Text.Trim(),
-//                    DiaChi = txtDiachi.Text.Trim(),
-//                    Email = txtEmail.Text.Trim(),
-//                    Sdt = txtSdt.Text.Trim()
-//                };
-//                try
-//                {
-//                    bool isUpdated = client.UpdateFaculty(maKhoa, facultyDto);
-
-//                    if (isUpdated)
-//                    {
-//                        MessageBox.Show("Cập nhật thông tin khoa thành công!", "Thành công", MessageBoxButtons.OK, MessageBoxIcon.Information);
-//                        LoadFaculties();
-//                    }
-//                    else
-//                    {
-//                        MessageBox.Show("Cập nhật thất bại. Không tìm thấy mã khoa tương ứng trong hệ thống.", "Lỗi", MessageBoxButtons.OK, MessageBoxIcon.Error);
-//                    }
-//                }
-//                catch (Exception ex)
-//                {
-//                    MessageBox.Show($"Lỗi kết nối dịch vụ WCF: {ex.Message}", "Lỗi hệ thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
-//                }
-//            }
-//        }
-//            private void BtnDelete_Click(object sender, EventArgs e)
-//        {
-//            if (dgvFaculty.SelectedRows.Count == 0) return;
-//            var maKhoa = dgvFaculty.SelectedRows[0].Cells["MaKhoa"].Value.ToString();
-//            try
-//            {
-//                using (FacultyServiceClient client = new FacultyServiceClient())
-//                {
-//                    bool IsDelete = client.DeleteFaculty(maKhoa);
-//                    if (IsDelete)
-//                    {
-//                        MessageBox.Show("Xoá thông tin khoa thành công!", "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
-//                        LoadFaculties();
-//                    }
-//                    else
-//                    {
-//                        MessageBox.Show("Không thể xoá thông tin khoa. Hãy thử lại sau.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-//                    }
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                MessageBox.Show($"Lỗi kết nối với WCF service: {ex.Message}", "System Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-//            }
-//        }
-//            private void BtnReset_Click(object sender, EventArgs e)
-//        {
-//            txtMakhoa.Clear();
-//            txtMakhoa.ReadOnly = false;
-//            txtTenkhoa.Clear();
-//            txtDiachi.Clear();
-//            txtEmail.Clear();
-//            txtSdt.Clear();
-//            LoadFaculties();
-//        }
-//        private void dgvFaculty_CellClick(object sender, DataGridViewCellEventArgs e)
-//        {
-//            if (e.RowIndex < 0) return;
-
-//            var row = dgvFaculty.Rows[e.RowIndex];
-//            txtMakhoa.Text = row.Cells["MaKhoa"].Value.ToString();
-//            txtMakhoa.ReadOnly = true;
-//            txtTenkhoa.Text = row.Cells["TenKhoa"].Value.ToString();
-//            txtDiachi.Text = row.Cells["DiaChi"].Value.ToString();
-//            txtEmail.Text = row.Cells["Email"].Value.ToString();
-//            txtSdt.Text = row.Cells["Sdt"].Value.ToString();
-//        }
-
-//        //-------------------------------
-//        // load and config data to gridview
-//        private void FacultyForm_Load(object sender, EventArgs e)
-//        {
-//            LoadFaculties();
-//        }
-//        private void LoadFaculties()
-//        {
-//            try
-//            {
-//                using (FacultyServiceClient client = new FacultyServiceClient())
-//                {
-//                    FacultyDto[] facultyDtos = client.GetAllFaculties();
-
-//                    dgvFaculty.AutoGenerateColumns = true;
-
-//                    dgvFaculty.DataSource = facultyDtos;
-
-//                    ConfigureFacultyGridColumns();
-//                }
-//            }
-//            catch (Exception ex)
-//            {
-//                MessageBox.Show($"Lỗi không thể tải dữ liệu Khoa: {ex.Message}", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
-//            }
-//        }
-
-//        private void ConfigureFacultyGridColumns()
-//        {
-//            if (dgvFaculty.Columns.Count == 0) return;
-
-//            dgvFaculty.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells;
-
-//            if (dgvFaculty.Columns["MaKhoa"] != null)
-//            {
-//                dgvFaculty.Columns["MaKhoa"].HeaderText = "Mã Khoa";
-//                dgvFaculty.Columns["MaKhoa"].DisplayIndex = 0;
-//            }
-
-//            if (dgvFaculty.Columns["TenKhoa"] != null)
-//            {
-//                dgvFaculty.Columns["TenKhoa"].HeaderText = "Tên Khoa";
-//                dgvFaculty.Columns["TenKhoa"].DisplayIndex = 1;
-//            }
-
-//            if (dgvFaculty.Columns["DiaChi"] != null)
-//            {
-//                dgvFaculty.Columns["DiaChi"].HeaderText = "Địa chỉ";
-//                dgvFaculty.Columns["DiaChi"].DisplayIndex = 2;
-//            }
-
-//            if (dgvFaculty.Columns["Email"] != null)
-//            {
-//                dgvFaculty.Columns["Email"].HeaderText = "Email";
-//                dgvFaculty.Columns["Email"].DisplayIndex = 3;
-//            }
-
-//            if (dgvFaculty.Columns["Sdt"] != null)
-//            {
-//                dgvFaculty.Columns["Sdt"].HeaderText = "SĐT";
-//                dgvFaculty.Columns["Sdt"].DisplayIndex = 4;
-//            }
-//        }
-
-//        private void pText_Paint(object sender, PaintEventArgs e)
-//        {
-
-//        }
-//        //--------------------------------------
-//        // test call service
-
-//        private void btnGetFaculty_Click(object sender, EventArgs e)
-//        {
-//            using (FacultyServiceClient client = new FacultyServiceClient())
-//            {
-//                try
-//                {
-//                    FacultyDto[] facultyDtos = client.GetAllFaculties();
-
-//                    if (facultyDtos != null && facultyDtos.Length > 0)
-//                    {
-//                        // Duyệt qua từng đối tượng DTO và chuyển thành chuỗi định dạng mong muốn
-//                        var lines = facultyDtos.Select(f => $"ID: {f.MaKhoa} - Tên Khoa: {f.TenKhoa}");
-
-//                        // Nối các dòng lại với nhau, phân tách bằng dấu xuống dòng (\n)
-//                        string result = string.Join("\n", lines);
-
-//                        MessageBox.Show(result, "Danh sách Khoa");
-//                    }
-//                    else
-//                    {
-//                        MessageBox.Show("Không có dữ liệu khoa nào được trả về.", "Thông báo");
-//                    }
-//                }
-//                catch (Exception ex)
-//                {
-//                    MessageBox.Show("Lỗi khi gọi Service: " + ex.Message, "Error");
-//                }
-//            }
-//        }
-//    }
-//}
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
@@ -263,14 +31,13 @@ namespace QL_SV
             this.btnDel.Click += async (s, e) => await BtnDelete_ClickAsync();
             this.btnReset.Click += BtnReset_Click;
             this.btnGetFaculty.Click += async (s, e) => await btnGetFaculty_ClickAsync();
-            this.dgvFaculty.CellClick += dgvFaculty_CellClick; // Khắc phục lỗi thiếu binding sự kiện click lưới
+            this.dgvFaculty.CellClick += dgvFaculty_CellClick;
         }
 
         #region CRUD Operations
 
         private async Task BtnAdd_ClickAsync()
         {
-            // Bật lại tính năng Validate dữ liệu trước khi đẩy lên Server
             if (!ValidateFacultyInput()) return;
 
             var faculty = PackageFacultyDto();
@@ -279,7 +46,6 @@ namespace QL_SV
             {
                 using (var client = new FacultyServiceClient())
                 {
-                    // Chạy tác vụ gọi WCF trên luồng ngầm để không làm đơ giao diện
                     await Task.Run(() => client.AddFaculty(faculty));
 
                     MessageBox.Show("Thêm thông tin khoa thành công!", "Thông báo", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -305,7 +71,7 @@ namespace QL_SV
             if (!ValidateFacultyInput()) return;
 
             var facultyDto = PackageFacultyDto();
-            facultyDto.MaKhoa = selectedMaKhoa; // Đảm bảo tính nhất quán của khóa chính (Primary Key)
+            facultyDto.MaKhoa = selectedMaKhoa;
 
             try
             {
@@ -408,7 +174,7 @@ namespace QL_SV
                 {
                     FacultyDto[] facultyDtos = await Task.Run(() => client.GetAllFaculties());
 
-                    dgvFaculty.DataSource = null; // Clear liên kết cũ tránh xung đột UI
+                    dgvFaculty.DataSource = null;
                     dgvFaculty.AutoGenerateColumns = true;
                     dgvFaculty.DataSource = facultyDtos;
 
@@ -425,7 +191,6 @@ namespace QL_SV
         {
             if (dgvFaculty.Columns.Count == 0) return;
 
-            // Chuyển sang Fill để giao diện tự động co giãn đẹp mắt hơn AllCells
             dgvFaculty.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
 
             string[] fields = { "MaKhoa", "TenKhoa", "DiaChi", "Email", "Sdt" };
@@ -448,7 +213,6 @@ namespace QL_SV
 
             var row = dgvFaculty.Rows[e.RowIndex];
 
-            // Sử dụng Null-conditional operator (?.) và mã kết hợp null (??) giúp triệt tiêu hoàn toàn Crash Bug
             txtMakhoa.Text = row.Cells["MaKhoa"].Value?.ToString()?.Trim() ?? string.Empty;
             txtMakhoa.ReadOnly = true;
 
@@ -515,7 +279,7 @@ namespace QL_SV
                 return false;
             }
 
-            // Kiểm tra định dạng Email chuẩn bằng Regex nếu người dùng có điền thông tin
+            // Kiểm tra định dạng Email
             if (!string.IsNullOrWhiteSpace(txtEmail.Text))
             {
                 var emailPattern = @"^[^@\s]+@[^@\s]+\.[^@\s]+$";
@@ -532,7 +296,6 @@ namespace QL_SV
 
         private void HandleException(Exception ex, string customMessage)
         {
-            // Quản lý lỗi tập trung giúp code gọn gàng, dễ tích hợp các thư viện Log (như Serilog, NLog) sau này
             MessageBox.Show($"{customMessage}.\nChi tiết kỹ thuật: {ex.Message}", "Lỗi Hệ Thống", MessageBoxButtons.OK, MessageBoxIcon.Error);
         }
 
