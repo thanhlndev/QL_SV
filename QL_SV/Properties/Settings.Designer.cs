@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace QL_SV.Properties
+namespace QLSV.WinForms.Properties
 {
 
 

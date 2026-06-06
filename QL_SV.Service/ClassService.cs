@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using QL_SV.Service.InterfaceService;
-namespace QL_SV.Service
+using QLSV.WCF.InterfaceService;
+namespace QLSV.WCF
 {
     public class ClassService : IClassService
     {

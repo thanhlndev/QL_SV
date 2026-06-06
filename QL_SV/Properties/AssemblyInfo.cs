@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("QL_SV")]
+[assembly: AssemblyTitle("QLSV.WinForms")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("QL_SV")]
+[assembly: AssemblyProduct("QLSV.WinForms")]
 [assembly: AssemblyCopyright("Copyright ©  2026")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

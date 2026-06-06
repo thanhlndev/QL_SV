@@ -6,7 +6,7 @@ using System.ServiceModel;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QL_SV.Service.InterfaceService
+namespace QLSV.WCF.InterfaceService
 {
     [ServiceContract]
     public interface IFacultyService

@@ -4,9 +4,8 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using Microsoft.Extensions.DependencyInjection;
-//using QL_SV.Service;
 
-namespace QL_SV
+namespace QLSV.WinForms
 {
     internal static class Program
     {
@@ -16,20 +15,10 @@ namespace QL_SV
         [STAThread]
         static void Main()
         {
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Ngo9BigBOggjHTQxAR8/V1JHaF1cXGNCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdlWXledHVWQmddUU10W0dWYEo=");
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            //var serviceProvider = ConfigureServices();
-            //var facultyService = serviceProvider.GetRequiredService<IFacultyService>();
-            Application.Run(new FacultyForm(
-                //facultyService
-                ));
+            Application.Run(new MainForm());
         }
-        //private static IServiceProvider ConfigureServices()
-        //{
-        //    var services = new ServiceCollection();
-        //    services.AddScoped<IFacultyService, FacultyService>();
-
-        //    return services.BuildServiceProvider();
-        //}
     }
 }

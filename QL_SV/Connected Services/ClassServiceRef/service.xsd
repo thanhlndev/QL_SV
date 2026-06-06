@@ -1,0 +1,59 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:tns="http://tempuri.org/" elementFormDefault="qualified" targetNamespace="http://tempuri.org/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:import namespace="http://schemas.datacontract.org/2004/07/QLSV.WCF.InterfaceService" />
+  <xs:element name="GetAllClasses">
+    <xs:complexType>
+      <xs:sequence />
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="GetAllClassesResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q1="http://schemas.datacontract.org/2004/07/QLSV.WCF.InterfaceService" minOccurs="0" name="GetAllClassesResult" nillable="true" type="q1:ArrayOfClassDto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddClass">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element xmlns:q2="http://schemas.datacontract.org/2004/07/QLSV.WCF.InterfaceService" minOccurs="0" name="classDto" nillable="true" type="q2:ClassDto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="AddClassResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="AddClassResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateClass">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maLop" nillable="true" type="xs:string" />
+        <xs:element xmlns:q3="http://schemas.datacontract.org/2004/07/QLSV.WCF.InterfaceService" minOccurs="0" name="classDto" nillable="true" type="q3:ClassDto" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="UpdateClassResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="UpdateClassResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteClass">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="maLop" nillable="true" type="xs:string" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+  <xs:element name="DeleteClassResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="DeleteClassResult" type="xs:boolean" />
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>

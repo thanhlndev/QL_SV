@@ -6,8 +6,8 @@ using System.Threading.Tasks;
 using System.Configuration;
 using System.Data.SqlTypes;
 using System.Data.SqlClient;
-using QL_SV.Service.InterfaceService;
-namespace QL_SV.Service
+using QLSV.WCF.InterfaceService;
+namespace QLSV.WCF
 {
     public class FacultyService : IFacultyService
     {
@@ -21,7 +21,7 @@ namespace QL_SV.Service
             //using(SqlConnection conn = new SqlConnection(connection))
             using(SqlConnection conn = new SqlConnection(_connectionString))
             {
-                string query = "SELECT MaKhoa, TenKhoa, DiaChi, Email, Sdt FROM Faculty";
+                string query = "SELECT MaKhoa, TenKhoa, DiaChi, Email, Sdt FROM Faculties";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 conn.Open();
                 using (SqlDataReader reader = cmd.ExecuteReader())
@@ -47,7 +47,7 @@ namespace QL_SV.Service
             //using (SqlConnection conn = new SqlConnection(connection))
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                string query = "INSERT INTO Faculty (maKhoa, tenKhoa, diaChi, email, sdt) VALUES (@maKhoa, @tenKhoa, @diaChi, @email, @sdt)";
+                string query = "INSERT INTO Faculties (maKhoa, tenKhoa, diaChi, email, sdt) VALUES (@maKhoa, @tenKhoa, @diaChi, @email, @sdt)";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@maKhoa", faculty.MaKhoa);
                 cmd.Parameters.AddWithValue("@tenKhoa", faculty.TenKhoa);
@@ -65,7 +65,7 @@ namespace QL_SV.Service
             var existingFaculty = GetAllFaculties().FirstOrDefault(f => f.MaKhoa == maKhoa);
             using (SqlConnection conn = new SqlConnection(_connectionString)) 
             {
-                string query = "UPDATE Faculty SET tenKhoa=@tenKhoa, diaChi=@diaChi, email=@email, sdt=@sdt WHERE maKhoa=@maKhoa";
+                string query = "UPDATE Faculties SET tenKhoa=@tenKhoa, diaChi=@diaChi, email=@email, sdt=@sdt WHERE maKhoa=@maKhoa";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@maKhoa", maKhoa);
                 cmd.Parameters.AddWithValue("@tenKhoa", faculty.TenKhoa);
@@ -82,7 +82,7 @@ namespace QL_SV.Service
             //using (SqlConnection conn = new SqlConnection(connection))
             using (SqlConnection conn = new SqlConnection(_connectionString))
             {
-                string query = "DELETE FROM Faculty WHERE maKhoa=@maKhoa";
+                string query = "DELETE FROM Faculties WHERE maKhoa=@maKhoa";
                 SqlCommand cmd = new SqlCommand(query, conn);
                 cmd.Parameters.AddWithValue("@maKhoa", maKhoa);
                 conn.Open();
